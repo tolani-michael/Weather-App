@@ -38,6 +38,9 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+    - publish: '$(Build.SourcesDirectory)/manifests'
+      artifact: manifests
+
 - stage: Deploy
   displayName: 'Deploy the containers'
   dependsOn: Build
@@ -46,7 +49,7 @@ stages:
     displayName: Deploy
     pool:
       vmImage: $(vmImageName)
-    environment: 'spike.default'
+    environment: 'mohkubernetes.default'
     variables:
     - group: Release
     strategy:
@@ -55,3 +58,20 @@ stages:
           steps:
           - download: current
             artifact: manifests
+          
+          - task: KubernetesManifest@0
+            inputs:
+              action: 'createSecret'
+              kubernetesServiceConnection: 'moh cluster'
+              namespace: 'default'
+              secretType: 'dockerRegistry'
+              secretName: 'secret'
+              dockerRegistryEndpoint: 'mohcontreg'
+          - task: KubernetesManifest@0
+            inputs:
+              action: 'deploy'
+              kubernetesServiceConnection: 'moh cluster'
+              namespace: 'default'
+              manifests: 'manifests/weatherapp-deployment.yml'
+              containers: 'mohcontreg.azurecr.io/mohzeelaweatherapp'
+              imagePullSecrets: 'secret'
