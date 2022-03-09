@@ -29,8 +29,6 @@ stages:
     displayName: Build
     pool:
       vmImage: $(vmImageName)
-    variables:
-    - group: mohcontreg
     steps:
     - task: Docker@2
       displayName: Build and push an image to container registry
@@ -54,7 +52,7 @@ stages:
       vmImage: $(vmImageName)
     environment: 'mohkubernetes.default'
     variables:
-    - group: Release
+    - group: mohcontreg
     strategy:
       runOnce:
         deploy:
