@@ -14,6 +14,7 @@ variables:
   imageRepository: 'mohzeelaweatherapp'
   containerRegistry: 'mohcontreg.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+  imagePullSecret: 'secret'
   tag: '$(Build.BuildId)'
   
 
@@ -65,7 +66,7 @@ stages:
               kubernetesServiceConnection: 'moh cluster'
               namespace: 'default'
               secretType: 'dockerRegistry'
-              secretName: 'secret'
+              secretName: '$(imagePullSecret)'
               dockerRegistryEndpoint: 'mohcontreg'
           - task: KubernetesManifest@0
             inputs:
@@ -73,5 +74,5 @@ stages:
               kubernetesServiceConnection: 'moh cluster'
               namespace: 'default'
               manifests: 'manifests/weatherapp-deployment.yml'
-              containers: 'mohcontreg.azurecr.io/mohzeelaweatherapp'
+              containers: $(containerRegistry)/$(imageRepository)
               imagePullSecrets: 'secret'
