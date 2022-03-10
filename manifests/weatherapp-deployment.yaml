@@ -6,7 +6,7 @@ metadata:
     app: wapp-dep
   name: wapp-dep
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: wapp-dep
