@@ -77,7 +77,7 @@ stages:
               namespace: 'default'
               manifests: |
                   $(Pipeline.Workspace)/manifests/weatherapp-deployment.yaml
-                  $(Pipeline.Workspace)/manifests/service.yaml
+                  $(Pipeline.Workspace)/manifests/weatherapp-service.yaml
               containers: $(containerRegistry)/$(imageRepository):$(tag)
               imagePullSecrets: '$(imagePullSecret)'
           
