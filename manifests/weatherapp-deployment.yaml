@@ -18,7 +18,7 @@ spec:
         app: wapp-dep
     spec:
       containers:
-      - image: mohcontreg.azurecr.io/mohzeelaweatherapp
+      - image: mohcontreg.azurecr.io/weatherapp
         name: mohzeelaweatherapp
         resources: {}
 status: {}
