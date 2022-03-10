@@ -60,18 +60,20 @@ stages:
           - download: current
             artifact: manifests
           
+
           - task: KubernetesManifest@0
             inputs:
               action: 'createSecret'
-              kubernetesServiceConnection: 'moh cluster'
+              kubernetesServiceConnection: 'mohcluster'
               namespace: 'default'
               secretType: 'dockerRegistry'
               secretName: '$(imagePullSecret)'
               dockerRegistryEndpoint: 'mohcontreg'
+         
           - task: KubernetesManifest@0
             inputs:
               action: 'deploy'
-              kubernetesServiceConnection: 'moh cluster'
+              kubernetesServiceConnection: 'mohcluster'
               namespace: 'default'
               manifests: |
                   $(Pipeline.Workspace)/manifests/weatherapp-deployment.yaml
