@@ -1,0 +1,23 @@
+# Default values for weatherapp.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: madusonovi/helm
+  pullPolicy: IfNotPresent
+  tag: latest
+
+serviceAccount:
+  create: false
+  name: "jenkins-dev"
+
+service:
+  type: NodePort
+  port: 80
+  targetPort: 80
+  nodePort: 30000
+
+
+
