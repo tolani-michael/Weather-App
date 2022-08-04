@@ -22,9 +22,9 @@ pipeline {
 
 
         stage('Deploy to Helm') {
-            withKubeConfig([credentialsId: 'jenkins-dev', serverUrl: 'https://B3CDC7A32ECA60F4732BE582C6C86D39.gr7.us-east-1.eks.amazonaws.com']) {
                  steps {
-                sh 'helm install weather-app ./weatherapp --values weatherapp/values.yaml '
+                    withKubeConfig([credentialsId: 'jenkins-dev', serverUrl: 'https://B3CDC7A32ECA60F4732BE582C6C86D39.gr7.us-east-1.eks.amazonaws.com']) {
+                        sh 'helm install weather-app ./weatherapp --values weatherapp/values.yaml '
                 }
 
             }
