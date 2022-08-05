@@ -8,7 +8,7 @@ pipeline {
 
         stage('Get code from SCM'){
             steps{
-                git branch: 'master', credentialId: 'https://github.com/tolani-michael/Weather-App.git'
+                git branch: 'master', 'https://github.com/tolani-michael/Weather-App.git'
             }
         }
 
