@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    tools {
-        docker 'docker'
-    }
     options {
         skipDefaultCheckout(true)
     }
