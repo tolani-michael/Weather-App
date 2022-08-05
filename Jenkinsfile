@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
     options {
@@ -15,6 +16,7 @@ pipeline {
         stage('Build & Push docker image'){
             steps{
                 sh 'docker build -t madusonovi/helm .'
+                sh 'echo "${PASSWORD}" | docker login -u ${USERNAME} --password-stdin'
                 sh 'docker push madusonovi/helm'
             }
             
