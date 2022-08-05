@@ -13,11 +13,15 @@ pipeline {
         }
 
         stage('Build & Push docker image'){
-            steps {
+            container ('docker') {
+                steps {
                 sh 'docker build -t madusonovi/helm .'
                 sh 'docker push madusonovi/helm'
 
+                }
+
             }
+            
         }
 
 
