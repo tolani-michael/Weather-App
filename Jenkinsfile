@@ -27,7 +27,6 @@ pipeline {
                  steps {
                     withKubeConfig([credentialsId: 'jenkins-dev', 
                                     serverUrl: 'https://B3CDC7A32ECA60F4732BE582C6C86D39.gr7.us-east-1.eks.amazonaws.com',
-                                    caCertificate: '"${CACERT}"',
                                     clusterName: 'project'
                                     ]) {
                         sh 'cat $KUBECONFIG'
