@@ -1,9 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "weatherapp.fullname" . }}
+  name: weatherapp
   labels:
-    {{- include "weatherapp.labels" . | nindent 4 }}
+    svc: weatherapp
+  namespace: {{ .Values.namespace }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -13,4 +14,4 @@ spec:
       name: http
       nodePort: {{ .Values.service.nodePort }}
   selector:
-    {{- include "weatherapp.selectorLabels" . | nindent 4 }}
+    app: weatherapp

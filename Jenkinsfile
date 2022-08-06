@@ -16,7 +16,7 @@ pipeline {
         stage('Build & Push docker image'){
             steps{
                 sh 'docker build -t madusonovi/helm .'
-                sh 'echo "${PASSWORD}" | docker login -u ${USERNAME} --password-stdin'
+                sh 'echo "${PASSWORD}" docker login -u ${USERNAME} --password-stdin'
                 sh 'docker push madusonovi/helm'
             }
             
@@ -25,7 +25,11 @@ pipeline {
 
         stage('Deploy to Helm') {
                  steps {
-                    withKubeConfig([credentialsId: 'jenkins-dev', serverUrl: 'https://B3CDC7A32ECA60F4732BE582C6C86D39.gr7.us-east-1.eks.amazonaws.com']) {
+                    withKubeConfig([credentialsId: 'jenkins-dev', 
+                                    serverUrl: 'https://B3CDC7A32ECA60F4732BE582C6C86D39.gr7.us-east-1.eks.amazonaws.com'
+                                    caCertificate: '"${CACERT}"'
+                                    clusterName: 'project'
+                                    ]) {
                         sh 'helm install weather-app ./weatherapp --values weatherapp/values.yaml '
                 }
 

@@ -1,24 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "weatherapp.fullname" . }}
+  name: weatherapp
   labels:
-    {{- include "weatherapp.labels" . | nindent 4 }}
+    app: weatherapp
+  namespace: {{ .Values.namespace }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
-  {{- end }}
   selector:
     matchLabels:
-      {{- include "weatherapp.selectorLabels" . | nindent 6 }}
+      app: weatherapp
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
-      annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
       labels:
-        {{- include "weatherapp.selectorLabels" . | nindent 8 }}
+        app: weatherapp
     spec:
       containers:
         - name: {{ .Chart.Name }}
