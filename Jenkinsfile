@@ -30,6 +30,7 @@ pipeline {
                                     caCertificate: '"${CACERT}"'
                                     clusterName: 'project'
                                     ]) {
+                        sh 'cat $KUBECONFIG'
                         sh 'helm install weather-app ./weatherapp --values weatherapp/values.yaml '
                 }
 
