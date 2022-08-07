@@ -25,13 +25,13 @@ pipeline {
 
         stage('Deploy to Helm') {
                  steps {
-                    withKubeConfig([credentialsId: 'jenkins-dev', 
-                                    serverUrl: 'https://B3CDC7A32ECA60F4732BE582C6C86D39.gr7.us-east-1.eks.amazonaws.com'
-                                    caCertificate: '"${CACERT}"'
-                                    clusterName: 'project'
-                                    ]) {
+                    withAWS(credentials: 'jenkins-aws', region: 'us-east-1') {
+                        sh 'aws eks --region  us-east-1 update-kubeconfig --name project'
                         sh 'cat $KUBECONFIG'
-                        sh 'helm install weather-app ./weatherapp --values weatherapp/values.yaml '
+                        sh 'helm install weather-app ./weatherapp --values weatherapp/values.yaml'
+                    }
+                    
+                        
                 }
 
             }
