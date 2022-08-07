@@ -28,9 +28,8 @@ pipeline {
                     withAWS(credentials: 'jenkins-aws', region: 'us-east-1') {
                         sh 'aws eks --region  us-east-1 update-kubeconfig --name project'
                         sh 'cat $KUBECONFIG'
-                        sh 'helm install weather-app ./weatherapp --values weatherapp/values.yaml'
+                        sh 'helm upgrade -i weather-app ./weatherapp --values weatherapp/values.yaml'
                     }
-                    
                         
                 }
 
