@@ -36,11 +36,10 @@ pipeline {
             }
            
         }
-    }
 
-post {
-    always {
-        emailext  (body: "${currentBuild.currentResult}: Job <b>${env.JOB_NAME}</b> completed!! <br><br> More info at: ${env.BUILD_URL}", subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}", to: 'madusonovidius@gmail.com', mimeType: 'text/html');
-        deleteDir()
+    post {
+        always {
+            deleteDir()
+        }
     }
 }
