@@ -14,9 +14,9 @@ pipeline {
 
         stage('Build & Push docker image'){
             steps{
-                sh 'docker build -t madusonovi/helm .'
+                sh 'docker build -t ${USERNAME}/helm .'
                 sh 'echo "${PASSWORD}" docker login -u ${USERNAME} --password-stdin'
-                sh 'docker push madusonovi/helm'
+                sh 'docker push ${USERNAME}/helm'
             }
             
         }
