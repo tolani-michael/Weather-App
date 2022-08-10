@@ -1,5 +1,4 @@
 
-
 class Forecast {
     constructor(){
         this.key= 'T2VbGbp8gBAQwU1t1qMzAquK3JGI2T6r';
